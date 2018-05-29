@@ -1,0 +1,41 @@
+<div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="0" fxLayoutGap.xs="0">
+    <div fxFlex="0 0 auto" class="text-left"  > 
+        <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0" fxLayoutGap.xs="0" >
+            <button md-button   fxFlex="1 1 auto" (click)="conMenuPlay()"  *ngIf="playMenu" >
+                <i class="fa fa-angle-double-left fa-2x" ></i>
+              </button> 
+            <button md-button   fxFlex="1 1 auto" (click)="conMenuPlay()"  *ngIf="!playMenu" >
+                <i class="fa fa-angle-double-right fa-2x" ></i></button> 
+        </div>
+      <div class="form-inline">
+          <accordion *ngIf="playMenu">
+              <accordion-group *ngFor="let group of groups;let i=index;" [isOpen]="i == 0" #grouptmp>
+                <div accordion-heading class="form-inline">
+                  <div *ngIf="!controlSubs(group)">
+                    <i class="{{group.icon}}"></i>
+                    <a routerLink="{{group.link}}" routerLinkActive='active-link'>{{group.name}}</a>
+                  </div>
+                  <div *ngIf="controlSubs(group)">
+                   <i class="{{group.icon}}"></i>
+                    {{group.name}}
+                  </div>
+                  <div *ngIf="controlSubs(group)">
+                    <i class="pull-right fa" [ngClass]="{'fa-chevron-down': grouptmp?.isOpen, 'fa-chevron-right': !grouptmp?.isOpen}"></i>
+                  </div>
+                </div>
+                <div *ngFor="let thrmenu of group.children">
+                  <i class="{{thrmenu.icon}}"></i>
+                  <a class="alinkLineHeight" routerLink="{{thrmenu.link}}" routerLinkActive='active-link'>{{thrmenu.name}}</a>
+                </div>
+              </accordion-group>
+            </accordion>
+            <!-- <img src="{{conmenu}}" (click)="conMenuPlay()" /> -->
+        </div>   
+    </div>
+    <router-outlet fxFlex="0 0 auto"></router-outlet>
+  </div>
+</div>
+
+
+

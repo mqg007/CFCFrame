@@ -1,0 +1,44 @@
+<div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlexAlign="center" >
+    <h5>{{framelang.frmModifypwd}}</h5>
+  </div>
+  <div>
+    <hr>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmModifyUserPwdUserID" disabled="true" [(ngModel)]="useridq">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmModifyUserPwdUserName" disabled="true" [(ngModel)]="usernameq">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmModifyUserPwdOldPwd" type="password" [(ngModel)]="userpwdoldq">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmModifyUserPwdNewPwd" type="password" [(ngModel)]="userpwdnewq">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmModifyUserPwdSureNewPwd" type="password" [(ngModel)]="userpwdnew2q">
+    </md-input-container>
+  </div>
+  <div>
+    <button type="button" md-button (click)="modifyUserPWD()">
+            <i class="fa fa-pencil" ></i>
+            {{commonlang.action_modify}}  
+              </button>
+    <button type="button" md-button (click)="clearEmptyPWD()">
+            <i class="fa fa-eraser" ></i>
+            {{commonlang.action_reset}}  
+              </button>
+  </div>
+</div>
+<p-growl [(value)]="errorinfos" [(sticky)]="consticky" [style]="{'width':'30%'}"></p-growl>

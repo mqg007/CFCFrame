@@ -1,0 +1,65 @@
+<div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0" class="bg">
+  <div fxFlexAlign="center">
+    <h5>{{framelang.frmLogQueryLogDetailTitle}}</h5>
+  </div>
+  <div>
+    <hr>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmOpUsersColName_USERNAME" style="color:black;" disabled="true" [(ngModel)]="currselect.USERNAMES">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmLogQueryColName_OPERATERIDEN" style="color:black;" disabled="true" [(ngModel)]="currselect.OPERATERIDEN">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmLogQueryColName_FUNCTIONNAME" style="color:black;" disabled="true" [(ngModel)]="currselect.FUNCTIONNAME">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmLogQueryColName_SYSTEMNAME" style="color:black;" disabled="true" [(ngModel)]="currselect.SYSTEMNAME">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmLogQueryColName_DOMAINNAME" style="color:black;" disabled="true" [(ngModel)]="currselect.DOMAINNAME">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmLogQueryColName_OPTIONNAME" style="color:black;" disabled="true" [(ngModel)]="currselect.OPTIONNAME">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmLogQueryColName_RECORDTIME" style="color:black;" disabled="true" [(ngModel)]="currselect.RECORDTIME">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container fxFlex='1,1,auto'>
+      <input mdInput [placeholder]="framelang.frmLogQueryColName_DESCRIPTIONS" style="color:black;" disabled="true" [(ngModel)]="currselect.DESCRIPTIONS">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmLogQueryColName_CLASSNAME" style="color:black;" disabled="true" [(ngModel)]="currselect.CLASSNAME">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmLogQueryColName_METHORDNAME" style="color:black;" disabled="true" [(ngModel)]="currselect.METHORDNAME">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmLogQueryColName_TABLENAME" style="color:black;" disabled="true" [(ngModel)]="currselect.TABLENAME">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container fxFlex='1,1,auto'>
+      <input mdInput [placeholder]="framelang.frmLogQueryColName_RECORDIDENCOLS" style="color:black;" disabled="true" [(ngModel)]="currselect.RECORDIDENCOLS">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container fxFlex='1,1,auto'>
+      <input mdInput [placeholder]="framelang.frmLogQueryColName_RECORDIDENCOLSVALUES" style="color:black;" disabled="true" [(ngModel)]="currselect.RECORDIDENCOLSVALUES">
+    </md-input-container>
+  </div>
+  <div fxFlexAlign="end">
+    <button type="button" md-button (click)="sureNo()" style="width:30px"><i class="fa fa-times"></i>{{commonlang.action_close}}</button>
+  </div>
+</div>
+<p-growl [(value)]="errorinfos" [(sticky)]="consticky" [style]="{'width':'30%'}"></p-growl>

@@ -1,0 +1,57 @@
+<div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlexAlign="center">
+    <h5>{{framelang.frmBizDictTitle}}</h5>
+  </div>
+  <div>
+    <hr>
+  </div>
+  <div>
+    <md-select [placeholder]="framelang.frmBizDictionarySelDict" [(ngModel)]="comdictname" name="comdictnameid">
+      <md-option [value]="">{{framelang.frmBizDictionaryNewDict}}</md-option>
+      <md-option *ngFor="let v of comdicts" [value]="v">
+        {{v.DOMAINNAMES}}
+      </md-option>
+    </md-select>
+
+    <button type="button" md-button (click)="querydata()">
+            <i class="fa fa-search" ></i>
+            {{commonlang.action_query}}     
+              </button>
+    <md-checkbox [checked]="isTmp" [(ngModel)]="isTmp" align="start"><span>{{commonlang.labelTmp}}</span></md-checkbox>
+    <button type="button" md-button (click)="addData()">        
+                  <i class="fa fa-user-plus" ></i>
+                {{commonlang.action_add}}
+                  </button>
+    <button type="button" md-button (click)="delData()">
+                <i class="fa fa-trash"></i>
+                {{commonlang.action_delete}}  
+                  </button>
+
+    <button type="button" md-button (click)="saveData()">
+                    <i class="fa fa-floppy-o" ></i>
+                    {{commonlang.action_save}}          
+                  <div class=" fa fa-spinner fa-pulse fa-1x fa-fw" *ngIf="consavediv"></div> 
+                  </button>
+  </div>
+  <div>
+    <p-dataTable [(value)]="bindcurrdata" [rows]="pagingParam.PageSize" dataKey="SSY_BIZ_DICTID" [emptyMessage]="commonlang.noticeNoFoundData"
+    [responsive]="true" resizableColumns="true" columnResizeMode="expand" [loading]="condiv" loadingIcon="fa-spinner" [(selection)]="selectrows"
+      [editable]="true" immutable="false" (onRowSelect)="selectGridRow($event)">
+      <p-column selectionMode="multiple" [style]="{'width':'15px'}"></p-column>
+      <p-column field="SequenceXXX" [header]="commonlang.labelSequenceNum" [style]="{'width':'30px'}"></p-column>
+      <p-column field="DOMAINNAMEIDEN" [header]="framelang.frmBizDictionaryColName_DOMAINNAMEIDEN" [editable]="conEditable"></p-column>
+      <p-column field="DOMAINNAMES" [header]="framelang.frmBizDictionaryColName_DOMAINNAMES" [editable]="conEditable"></p-column>
+      <p-column field="OPTIONIDEN" [header]="framelang.frmBizDictionaryColName_OPTIONIDEN" [editable]="conItemEditable"></p-column>
+      <p-column field="OPTIONNAMES" [header]="framelang.frmBizDictionaryColName_OPTIONNAMES" [editable]="conItemEditable"></p-column>
+      <p-column field="OPTIONIDEN_CUT" [header]="framelang.frmBizDictionaryColName_OPTIONIDEN_CUT" [editable]="true"></p-column>
+      <p-column field="OPTIONNAMES_CUT" [header]="framelang.frmBizDictionaryColName_OPTIONNAMES_CUT" [editable]="true"></p-column>
+      <p-column field="PYM" [header]="framelang.frmBizDictionaryColName_PYM" [editable]="true"></p-column>
+      <p-column field="REMARKS" [header]="commonlang.labelRemark" [editable]="true"></p-column>
+    </p-dataTable>
+    <pagination *ngIf="tottlecounts > 0" [firstText]="commonlang.label_chkGridDataPagerFirstText" [previousText]="commonlang.label_chkGridDataPagerPreviousText"
+      [nextText]="commonlang.label_chkGridDataPagerNextText" [lastText]="commonlang.label_chkGridDataPagerEndText" class="pagination-sl"
+      [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" [totalItems]="tottlecounts" [itemsPerPage]="pagingParam.PageSize"
+      [maxSize]="5" [(ngModel)]="pagingParam.PageIndex" (pageChanged)="changepage($event)"></pagination>
+  </div>
+</div>
+<p-growl [(value)]="errorinfos" [(sticky)]="consticky" [style]="{'width':'30%'}"></p-growl>

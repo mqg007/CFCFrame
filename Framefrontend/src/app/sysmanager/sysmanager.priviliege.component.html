@@ -1,0 +1,64 @@
+<div fxLayout="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlexAlign="center">
+    <h5>{{framelang.frmPriviliegeTitle}}</h5>
+  </div>
+  <div>
+    <hr>
+  </div>
+  <div fxFlexAlign="center">
+    <md-select [placeholder]="framelang.frmOpGroupGroupName" [(ngModel)]="groupid" (change)="selectGroup()" name="groupnameq">
+      <md-option *ngFor="let v of groupnames" [value]="v.GROUPID">
+        {{v.GROUPNAME}}
+      </md-option>
+    </md-select>
+  </div>
+  <div>
+    <hr>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmReSetUserPwdSelectUser" [(ngModel)]="selectObj" [mdAutocomplete]="auto" [formControl]="userCtrl">
+      <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayUserFn">
+        <md-option *ngFor="let v of filterusersOver | async" [value]="v">
+          <span>{{v.text}}</span>
+        </md-option>
+      </md-autocomplete>
+    </md-input-container>
+
+    <button type="button" md-button (click)="saveData('I')">
+                <i class="fa fa-floppy-o" ></i>
+                {{commonlang.action_save}}          
+              <div class=" fa fa-spinner fa-pulse fa-1x fa-fw" *ngIf="consavediv"></div> 
+              </button>
+
+    <button type="button" md-button (click)="delData()">
+             <i class="fa fa-trash"></i>{{commonlang.action_delete}}           
+              </button>
+  </div>
+  <div>
+    <p-dataTable [(value)]="bindcurrdata" [rows]="pagingParam.PageSize" dataKey="groupuserid" [emptyMessage]="commonlang.noticeNoFoundData"
+      [responsive]="true" resizableColumns="true" columnResizeMode="expand" [(selection)]="selectrows" immutable="false" [loading]="condiv"
+      loadingIcon="fa-spinner">
+      <p-column selectionMode="single" [style]="{'width':'15px'}"></p-column>
+      <p-column field="SequenceXXX" [header]="commonlang.labelSequenceNum" [style]="{'width':'30px'}"></p-column>
+      <p-column field="GROUPNAME" [header]="framelang.frmOpGroupGroupName" ></p-column>
+      <p-column field="USERNAME" [header]="framelang.frmOpUsersColName_USERNAME" ></p-column>
+    </p-dataTable>
+    <br>
+    <pagination *ngIf="tottlecounts > 0" [firstText]="commonlang.label_chkGridDataPagerFirstText" [previousText]="commonlang.label_chkGridDataPagerPreviousText"
+      [nextText]="commonlang.label_chkGridDataPagerNextText" [lastText]="commonlang.label_chkGridDataPagerEndText" class="pagination-sl"
+      [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" [totalItems]="tottlecounts" [itemsPerPage]="pagingParam.PageSize"
+      [maxSize]="5" [(ngModel)]="pagingParam.PageIndex" (pageChanged)="changepage($event)"></pagination>
+  </div>
+  <div>
+    <span>{{framelang.frmOpPrivilegeConfigFunctionTree}}：</span>
+    <button type="button" md-button (click)="saveGroupFunctions()">
+               <i class="fa fa-floppy-o"></i>{{framelang.frmOpPrivilegeSaveConfigTree}}           
+                </button>
+  </div>
+  <div>
+    <p-tree [value]="functionTree" selectionMode="checkbox" [(selection)]="selectedFunctions" [propagateSelectionUp]="true" [propagateSelectionDown]="true"
+      loading="true"></p-tree>
+  </div>
+</div>
+<p-growl [(value)]="errorinfos" [(sticky)]="consticky" [style]="{'width':'30%'}"></p-growl>

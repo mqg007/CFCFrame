@@ -1,0 +1,47 @@
+<div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlexAlign="center">
+    <h5>{{framelang.frmHelpTitle}}</h5>
+  </div>
+  <div>
+    <hr>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmHelpSystemName" disabled="true" [(ngModel)]="frmHelpSystemName">
+    </md-input-container>
+  </div>
+<!--   <div>
+    <a href="../app/sysmanager/helpdoc/使用手册.docx" target="blank">{{framelang.frmHelpUseManualDoc}}</a>
+  </div> -->
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmLinkMan" disabled="true" [(ngModel)]="frmLinkMan">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmHelpTelephone" disabled="true" [(ngModel)]="frmHelpTelephone">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmHelpQQ" disabled="true" [(ngModel)]="frmHelpQQ">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmHelpEmail" disabled="true" [(ngModel)]="frmHelpEmail">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmHelpCopyright" disabled="true" [(ngModel)]="frmHelpCopyright">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmHelpWebSite" disabled="true" [(ngModel)]="frmHelpWebSite">
+    </md-input-container>
+  </div>
+</div>
+<p-growl [(value)]="errorinfos" [(sticky)]="consticky" [style]="{'width':'30%'}"></p-growl>

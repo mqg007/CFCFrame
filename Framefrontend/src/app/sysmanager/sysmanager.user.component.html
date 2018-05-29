@@ -1,0 +1,65 @@
+<div fxLayout="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlexAlign="center">
+    <h5>{{framelang.frmUserTitle}}</h5>
+  </div>
+  <div>
+    <hr>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmOpUsersUserName" [(ngModel)]="usernameq">
+    </md-input-container>
+    <md-select [placeholder]="commonlang.labelIsUse" [(ngModel)]="isuse" name="isuseq">
+      <md-option [value]="">{{commonlang.labelAllName}}</md-option>
+      <md-option [value]="1">{{commonlang.labelIs}}</md-option>
+      <md-option [value]="0">{{commonlang.labelIsNot}}</md-option>
+    </md-select>
+
+    <button type="button" md-button (click)="querydata()">
+<i class="fa fa-search" ></i>
+{{commonlang.action_query}}      
+</button>
+    <md-checkbox [checked]="isTmp" [(ngModel)]="isTmp" align="start"><span>{{commonlang.labelTmp}}</span></md-checkbox>
+    <button type="button" md-button (click)="addData()">        
+    <i class="fa fa-user-plus" ></i>
+  {{commonlang.action_add}}
+    </button>
+    <button type="button" md-button (click)="delData()">
+  <i class="fa fa-trash"></i>
+  {{commonlang.action_delete}}  
+    </button>
+
+    <button type="button" md-button (click)="saveData()">
+      <i class="fa fa-floppy-o" ></i>
+      {{commonlang.action_save}}          
+    <div class=" fa fa-spinner fa-pulse fa-1x fa-fw" *ngIf="consavediv"></div> 
+    </button>
+  </div>
+  <div>
+    <br>
+  </div>
+  <div>
+    <p-dataTable [(value)]="bindcurrdata" [rows]="pagingParam.PageSize" dataKey="USERID" [emptyMessage]="commonlang.noticeNoFoundData"
+    [responsive]="true" resizableColumns="true" columnResizeMode="expand" [loading]="condiv" loadingIcon="fa-spinner" [(selection)]="selectrows"
+      [editable]="true" immutable="false" (onRowSelect)="selectGridRow($event)">
+      <p-column selectionMode="multiple" [style]="{'width':'15px'}"></p-column>
+      <p-column field="SequenceXXX" [header]="commonlang.labelSequenceNum" [style]="{'width':'30px'}"></p-column>
+      <p-column field="USERID" [header]="framelang.frmOpUsersColName_USERID" [editable]="conedit"></p-column>
+      <p-column field="USERNAME" [header]="framelang.frmOpUsersColName_USERNAME" [editable]="true"></p-column>
+      <p-column field="REGISTERDATE" [header]="framelang.frmOpUsersColName_REGISTERDATEE" ></p-column>
+      <p-column field="TELEPHONE" [header]="commonlang.labelTelephone" [editable]="true" ></p-column>
+      <p-column field="EMAIL" [header]="commonlang.labelEmail" [editable]="true" ></p-column>
+      <p-column field="ISUSE" [header]="commonlang.labelIsUse">
+        <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+          <p-inputSwitch [(ngModel)]="car[col.field]"></p-inputSwitch>
+        </ng-template>
+      </p-column>
+      <p-column field="NOTE" [header]="commonlang.labelRemark"  [editable]="true"></p-column>
+    </p-dataTable>
+    <pagination *ngIf="tottlecounts > 0" [firstText]="commonlang.label_chkGridDataPagerFirstText" [previousText]="commonlang.label_chkGridDataPagerPreviousText"
+      [nextText]="commonlang.label_chkGridDataPagerNextText" [lastText]="commonlang.label_chkGridDataPagerEndText" class="pagination-sl"
+      [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" [totalItems]="tottlecounts" [itemsPerPage]="pagingParam.PageSize"
+      [maxSize]="5" [(ngModel)]="pagingParam.PageIndex" (pageChanged)="changepage($event)"></pagination>
+  </div>
+</div>
+<p-growl [(value)]="errorinfos" [(sticky)]="consticky" [style]="{'width':'30%'}"></p-growl>

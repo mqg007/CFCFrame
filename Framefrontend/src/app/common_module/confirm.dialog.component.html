@@ -1,0 +1,11 @@
+<div class="bg">
+    <h2 md-dialog-title>{{actionTitle}}</h2>
+    <hr>
+    <md-dialog-content>{{actionContent}}</md-dialog-content>
+    <br><br>
+    <hr>
+    <div style="text-align:right">
+      <button md-button (click)="sureYes()" [style]="{'width':'30px'}"><i class="fa fa-check"></i>{{actionOkText}}</button>
+      <button md-button (click)="sureNo()" [style]="{'width':'30px'}"><i class="fa fa-times"></i>{{actionCancelText}}</button>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlexAlign="center" >
+    <h5>{{framelang.frmResetpwdTitle}}</h5>
+  </div>
+  <div>
+    <hr>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmReSetUserPwdSelectUser" [(ngModel)]="selectObj" [mdAutocomplete]="auto" [formControl]="userCtrl">
+      <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayUserFn">
+        <md-option *ngFor="let v of filterusersOver | async" [value]="v">
+          <span>{{v.text}}</span>
+        </md-option>
+      </md-autocomplete>
+    </md-input-container>
+    <button type="button" md-button (click)="resetUserPWD()">
+                <i class="fa fa-pencil" ></i>
+                {{commonlang.action_resetpassword}}  
+              </button>
+  </div>
+  <div>
+    <hr>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmOpUsersColName_USERNAME" disabled="true" [ngModel]="curruser.USERNAME">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="commonlang.labelTelephone" disabled="true" [(ngModel)]="curruser.TELEPHONE">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="commonlang.labelEmail" disabled="true" [(ngModel)]="curruser.EMAIL">
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container >
+      <input mdInput [placeholder]="commonlang.labelRemark" disabled="true" [(ngModel)]="curruser.NOTE">
+    </md-input-container>
+  </div>
+</div>
+<p-growl [(value)]="errorinfos" [(sticky)]="consticky" [style]="{'width':'30%'}"></p-growl>

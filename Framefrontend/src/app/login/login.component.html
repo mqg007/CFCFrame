@@ -1,0 +1,67 @@
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td bgcolor="#e5f6cf">&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="608" background="../../assets/image/login_03.gif">
+        <table width="862" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="266" background="../../assets/image/login_04.gif">&nbsp;</td>
+        </tr>
+        <tr>
+          <td height="95"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="424" height="95" background="../../assets/image/login_06.gif">&nbsp;</td>
+              <td width="183" background="../../assets/image/login_07.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="1%" height="30">
+                     </td>
+                  <td width="99%" height="30">
+                        <input type="text" class="login-inpput" [placeholder]="p_Username" [autofocus]="autofocus"  
+                         [(ngModel)]="nameModel" name="nameModel" (focus)="inputFocus()">                    
+                    </td>
+                </tr>
+                <tr>
+                  <td height="30">
+                      </td>
+                  <td height="30">
+                        <input type="password"  class="login-password login-inpput" [placeholder]="p_Password" [(ngModel)]="psModel" name="psModel" (focus)="inputFocus()">
+                    </td>
+                </tr>
+                <tr>
+                  <td height="30"></td>
+                  <td height="30">
+                        <md-checkbox name = "remusernameid"  [(ngModel)]="remUsername">{{remUsernameLabel}}</md-checkbox> 
+                        <md-checkbox name = "rempasswordid" style="display:none;"  [(ngModel)]="remPassword">{{remPasswordLabel}}</md-checkbox>   
+                    </td>
+                </tr>
+              </table></td>
+              <td width="255" background="../../assets/image/login_08.gif">&nbsp;</td>
+            </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td height="247" valign="top" background="../../assets/image/df.jpg">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="50%" height="30"></td>
+              <td width="40%">
+                <button type="submit"  md-button   fxFlex="1 1 auto" (click)="login()" *ngIf="enableLogin" >{{btnLogin}}</button> 
+              </td>
+              <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="50%" height="30"></td>
+                <td width="40%"></td>
+                <td width="10%"></td>          
+            </tr>
+          </table>
+        </td>
+        </tr>
+      </table></td>
+    </tr>
+    <tr>
+      <td bgcolor="#a2d962">&nbsp;</td>
+    </tr>
+  </table>
+<p-growl [(value)]="loginerrortextArr" [(sticky)]="consticky"></p-growl>

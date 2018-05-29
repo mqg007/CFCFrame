@@ -1,0 +1,9 @@
+  {
+    "master_node": "http://localhost:10081",
+    "master_node_state": "1",
+    "slave_node": "http://localhost:10081",
+    "slave_node_state": "1",
+    "timeOutMinutes":"2",
+    "keypwd": "custom_xxx",
+    "ivpwd":"custom_xxx"        
+  }

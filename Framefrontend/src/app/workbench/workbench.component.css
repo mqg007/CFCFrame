@@ -1,0 +1,209 @@
+.alinkColumnIntervalWidth{
+    column-gap: 10px;
+    padding: 0 0 0 0;
+    
+}
+
+.icon-box{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+}
+/* .icon_sys{
+    background: url('../../assets/image/14-4.png') no-repeat center top;
+}
+.icon_warehouse{
+    background: url('../../assets/image/14-2.png') no-repeat center top;
+} */
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: #d96e54;
+    border-bottom: 2px  solid #d96e54;
+}
+
+.bg{
+    background: url('../../assets/image/bg.jpg') repeat center top;
+}
+
+.divcontainer {
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.div-row {
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.div-row-col1,
+.div-row-col2,
+.div_row_col3, 
+.div-row-col4, 
+.div-row-col5, 
+.div-row-col6, 
+.div-row-col7, 
+.div-row-col8, 
+.div-row-col9, 
+.div-row-col10, 
+.div-row-col11, 
+.div-row-col12 {
+
+  float: left;
+  box-sizing: border-box;
+
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.div-row-col{
+        -webkit-flex-basis: 0;
+        -ms-flex-preferred-size: 0;
+            flex-basis: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    max-width: 100%;
+
+}
+
+.div-row-col-auto{
+       -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+    width: auto;
+
+}
+
+.div-row-col-1 {
+      -webkit-box-flex: 0;
+    -webkit-flex: 0 0 8.333333%;
+        -ms-flex: 0 0 8.333333%;
+            flex: 0 0 8.333333%;
+    max-width: 8.333333%;
+}
+
+.div-row-col-2 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 16.666667%;
+        -ms-flex: 0 0 16.666667%;
+            flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+}
+
+.div-row-col-3 {
+      -webkit-box-flex: 0;
+    -webkit-flex: 0 0 25%;
+        -ms-flex: 0 0 25%;
+            flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.div-row-col-4 {
+       -webkit-box-flex: 0;
+    -webkit-flex: 0 0 33.333333%;
+        -ms-flex: 0 0 33.333333%;
+            flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
+.div-row-col-5 {
+     -webkit-box-flex: 0;
+    -webkit-flex: 0 0 41.666667%;
+        -ms-flex: 0 0 41.666667%;
+            flex: 0 0 41.666667%;
+    max-width: 41.666667%;
+}
+
+.div-row-col-6 {
+       -webkit-box-flex: 0;
+    -webkit-flex: 0 0 50%;
+        -ms-flex: 0 0 50%;
+            flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.div-row-col-7 {
+      -webkit-box-flex: 0;
+    -webkit-flex: 0 0 58.333333%;
+        -ms-flex: 0 0 58.333333%;
+            flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+}
+
+.div-row-col-8 {
+      -webkit-box-flex: 0;
+    -webkit-flex: 0 0 66.666667%;
+        -ms-flex: 0 0 66.666667%;
+            flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+}
+
+.div-row-col-9 {
+      -webkit-box-flex: 0;
+    -webkit-flex: 0 0 75%;
+        -ms-flex: 0 0 75%;
+            flex: 0 0 75%;
+    max-width: 75%;
+}
+
+.div-row-col-10 {
+     -webkit-box-flex: 0;
+    -webkit-flex: 0 0 83.333333%;
+        -ms-flex: 0 0 83.333333%;
+            flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+}
+
+.div-row-col-11 {
+      -webkit-box-flex: 0;
+    -webkit-flex: 0 0 91.666667%;
+        -ms-flex: 0 0 91.666667%;
+            flex: 0 0 91.666667%;
+    max-width: 91.666667%;
+}
+
+.div-row-col-12 {
+     -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+    max-width: 100%;
+}
+
+/* .warehouse{    
+    display: inline-block;
+    width: 19px;
+    height: 34px;
+    background: url('../../assets/image/24_02.png') no-repeat center center;
+    color: #999;
+    line-height: 34px;
+} */
+
+
+
+

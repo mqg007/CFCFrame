@@ -1,0 +1,106 @@
+<div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0" class="bg">
+  <div>
+    <br><br><br><br>
+  </div>
+  <div fxFlexAlign="center">
+    <h5>{{framelang.frmOpPagesOperateFunction}}</h5>
+  </div>
+  <div>
+    <hr>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmOpPagesFunctionID" [(ngModel)]="currselect.PAGEID" required>
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmOpPagesFunctionName" [(ngModel)]="currselect.PAGENAME" required>
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmOpPagesParentFunctionID" [(ngModel)]="currselect.PAGEPARENTID" required>
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmOpPagesModuleName" [(ngModel)]="currselect.PAGEMOUDAL" required>
+    </md-input-container>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmOpPagesFunctionSort" [(ngModel)]="currselect.SEQSORT">
+    </md-input-container>
+  </div>
+  <div>
+    <md-slide-toggle [(ngModel)]="currselect.ISUSE">
+      {{commonlang.labelIsUse}}
+    </md-slide-toggle>
+  </div>
+  <div>
+    <p-panel [header]="framelang.frmOpPagesFunctionType">
+      <md-tab-group>
+        <md-tab label="Web">
+          <br>
+          <div>
+            <md-input-container>
+              <input mdInput [placeholder]="framelang.frmOpPagesFrameContainer" [(ngModel)]="currselect.PAGETARGET" style="width:500px">
+            </md-input-container>
+          </div>
+          <div>
+            <md-input-container>
+              <input mdInput [placeholder]="framelang.frmOpPagesFrameFunctionPath" [(ngModel)]="currselect.PAGEURL" style="width:500px">
+            </md-input-container>
+          </div>
+          <div>
+            <md-input-container>
+              <input mdInput [placeholder]="framelang.frmOpPagesFrameIdenPic" [(ngModel)]="currselect.PAGEIMG" style="width:100%">
+            </md-input-container>
+          </div>
+        </md-tab>
+        <md-tab label="Wpf">
+          <br>
+          <div>
+            <md-input-container>
+              <input mdInput [placeholder]="framelang.frmOpPagesWpfContainer" [(ngModel)]="currselect.WPFPAGETARGET" style="width:500px">
+            </md-input-container>
+          </div>
+          <div>
+            <md-input-container>
+              <input mdInput [placeholder]="framelang.frmOpPagesWpfFunctionPath" [(ngModel)]="currselect.WPFPAGEURL" style="width:500px">
+            </md-input-container>
+          </div>
+          <div>
+            <md-input-container>
+              <input mdInput [placeholder]="framelang.frmOpPagesWpfIdenPic" [(ngModel)]="currselect.PAGEIMG" style="width:100%">
+            </md-input-container>
+          </div>
+        </md-tab>
+        <md-tab label="WinForm">
+          <br>
+          <div>
+            <md-input-container>
+              <input mdInput [placeholder]="framelang.frmOpPagesAccemblyContainer" [(ngModel)]="currselect.PAGEASSEMBLY" style="width:500px">
+            </md-input-container>
+          </div>
+          <div>
+            <md-input-container>
+              <input mdInput [placeholder]="framelang.frmOpPagesAccemblyFunctionPath" [(ngModel)]="currselect.PAGECLASSNAME" style="width:500px">
+            </md-input-container>
+          </div>
+          <div>
+            <md-input-container>
+              <input mdInput [placeholder]="framelang.frmOpPagesAccemblyIdenPic" [(ngModel)]="currselect.PAGEIMG" style="width:100%">
+            </md-input-container>
+          </div>
+        </md-tab>
+      </md-tab-group>
+    </p-panel>
+  </div>
+  <div fxFlexAlign="end">
+    <button type="button" md-button (click)="sureYes()" style="width:30px"><i class="fa fa-check"></i>{{commonlang.action_cofirm}}</button>
+    <button type="button" md-button (click)="sureNo()" style="width:30px"><i class="fa fa-times"></i>{{commonlang.action_cancel}}</button>
+  </div>
+</div>
+<p-growl [(value)]="errorinfos" [(sticky)]="consticky" [style]="{'width':'30%'}"></p-growl>

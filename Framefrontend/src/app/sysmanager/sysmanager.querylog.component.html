@@ -1,0 +1,44 @@
+<div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlexAlign="center">
+    <h5>{{framelang.frmLogTitle}}</h5>
+  </div>
+  <div>
+    <hr>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput [placeholder]="framelang.frmOpUsersUserName" [(ngModel)]="usernameq">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput [placeholder]="commonlang.labelRemark" [(ngModel)]="remarkq">
+    </md-input-container>
+    <p-calendar [(ngModel)]="startdateRECORDTIMEQ" dataType="string" dateFormat="yy-mm-dd" [placeholder]="commonlang.labelStartDate"
+      [locale]="initDate" yearNavigator="true" monthNavigator="true" yearRange="1900:2050">
+    </p-calendar>
+
+    <p-calendar [(ngModel)]="enddateRECORDTIMEQ" dataType="string" dateFormat="yy-mm-dd" [placeholder]="commonlang.labelEndDate"
+      [locale]="initDate" yearNavigator="true" monthNavigator="true" yearRange="1900:2050"></p-calendar>
+    <button type="button" md-button (click)="querydata()">
+            <i class="fa fa-search" ></i>
+            {{commonlang.action_query}}    
+              </button>
+  </div>
+  <div>
+    <p-dataTable [(value)]="bindcurrdata" [rows]="pagingParam.PageSize" dataKey="LOGID" [emptyMessage]="commonlang.noticeNoFoundData"
+    [responsive]="true" resizableColumns="true" columnResizeMode="expand" [editable]="false" immutable="false" (onRowDblclick)="doubleClickGrid($event)"
+      [loading]="condiv" loadingIcon="fa-spinner">
+      <p-column field="SequenceXXX" [header]="commonlang.labelSequenceNum" [style]="{'width':'30px'}"></p-column>
+      <p-column field="USERNAMES" [header]="framelang.frmLogQueryColName_USERNAMES"></p-column>
+      <p-column field="DOMAINNAME" [header]="framelang.frmLogQueryColName_DOMAINNAME"></p-column>
+      <p-column field="OPTIONNAME" [header]="framelang.frmLogQueryColName_OPTIONNAME"></p-column>
+      <p-column field="RECORDTIME" [header]="framelang.frmLogQueryColName_RECORDTIME" ></p-column>
+      <p-column field="OPERATERIDEN" [header]="framelang.frmLogQueryColName_OPERATERIDEN"></p-column>
+      <p-column field="DESCRIPTIONS" [header]="commonlang.labelRemark" ></p-column>
+    </p-dataTable>
+    <pagination *ngIf="tottlecounts > 0" [firstText]="commonlang.label_chkGridDataPagerFirstText" [previousText]="commonlang.label_chkGridDataPagerPreviousText"
+      [nextText]="commonlang.label_chkGridDataPagerNextText" [lastText]="commonlang.label_chkGridDataPagerEndText" class="pagination-sl"
+      [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" [totalItems]="tottlecounts" [itemsPerPage]="pagingParam.PageSize"
+      [maxSize]="5" [(ngModel)]="pagingParam.PageIndex" (pageChanged)="changepage($event)"></pagination>
+  </div>
+</div>
+<p-growl [(value)]="errorinfos" [(sticky)]="consticky" [style]="{'width':'30%'}"></p-growl>

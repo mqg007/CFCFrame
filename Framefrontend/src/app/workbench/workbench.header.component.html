@@ -1,0 +1,53 @@
+<div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="1px" fxLayoutGap.xs="0" >
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed;">
+        <tr>
+          <td height="9" style="line-height:9px; background-image:url(../../assets/image/main_04.gif)"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="97" height="9" background="../../assets/image/main_01.gif">&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td height="47" background="../../assets/image/main_09.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="38" height="47" >
+                <img src="../../assets/image/user-ph.png">
+                </td>
+              <td width="59"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td height="29" background="../../assets/image/main_07.gif">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td height="18" background="../../assets/image/main_14.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed;">
+                    <tr>
+                      <td  style="width:1px;">&nbsp;</td>
+                      <td ><span class="STYLE1">{{username}}</span></td>
+                    </tr>
+                  </table></td>
+                </tr>
+              </table></td>              
+              <td  width="155" background="../../assets/image/main_08.gif">&nbsp;</td>
+              <td></td>
+              <td ngClass.gt-xs="logo_max"  ngClass.xs="logo_min" background="../../assets/image/main_111.gif">              
+              <button md-icon-button [mdMenuTriggerFor]="menu"><i class="fa fa-power-off fa-2x"></i></button>
+              <md-menu #menu="mdMenu">
+                <button md-menu-item (click)="relogin()"><i class="fa fa-sign-in"></i><span>{{framelang.frmWorkbenchReLogin}}</span></button>
+                <button md-menu-item (click)="quitSystem()"><i class="fa fa-sign-out"></i><span>{{framelang.frmWorkbenchQuitSystem}}</span></button>
+              </md-menu>
+            </td>
+            </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td height="5" style="line-height:5px; background-image:url(../../assets/image/main_18.gif)"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="180" background="../../assets/image/main_16.gif"  style="line-height:5px;">&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          </table></td>
+        </tr>
+      </table> 
+</div>
+<p-growl [(value)]="errorinfos" [(sticky)]="consticky" [style]="{'width':'30%'}"></p-growl>

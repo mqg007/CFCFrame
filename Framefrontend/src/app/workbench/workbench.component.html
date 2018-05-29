@@ -1,0 +1,25 @@
+<div class="bg" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div>
+    <app-workbench-header></app-workbench-header>
+  </div>
+  <div>
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+      <div class="form-inline" *ngFor="let item of menus;let i=index;">
+        <i class="icon-box {{item.icon}}"></i>
+        <a routerLink="{{item.link}}" routerLinkActive='active-link'>{{item.name}}</a>&nbsp;
+      </div>
+    </div>
+    <div>
+      <hr style="width:100%;">
+    </div>
+  </div>
+  <div style="width:100%; min-height:600px;">
+    <router-outlet></router-outlet>
+  </div>
+  <div>
+    <div>
+      <hr style="width:100%;">
+    </div>
+    <app-workbench-bottom></app-workbench-bottom>
+  </div>
+</div>
