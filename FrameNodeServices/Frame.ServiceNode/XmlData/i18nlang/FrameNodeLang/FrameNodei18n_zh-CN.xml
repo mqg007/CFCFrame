@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root id="xxx" texts="xxx">
+  <item id="noFoundBizNode" texts="没有发现可用业务节点！"></item>
+  <item id="noFoundDataNode" texts="没有发现可用数据节点！"></item>
+  <item id="noFoundTokenText" texts="没有获取到令牌！"></item>
+  <item id="noFoundTokens" texts="没有获取到令牌记录集！"></item>
+  <item id="tokenOk" texts="令牌正确！"></item>
+  <item id="tokenErr" texts="令牌不正确！"></item>
+  <item id="tokenCheckErr" texts="检查令牌发生异常！原因："></item>
+  <item id="initDataNodeErr" texts="初始化数据节点发生异常！原因："></item>
+  <item id="noFindDataNodes" texts="没有发现数据节点！"></item>
+  <item id="noFindDataNodesOrBizNodes" texts="业务节点或数据节点不存在！"></item>
+  <item id="noFindDataNodesAndBizNodes" texts="没有发现业务节点和数据节点！"></item>
+  <item id="getDataNodeAndBizNodeErr" texts="获取数据节点和业务节点发生异常！原因："></item>
+  <item id="noFindNodeErrorLog" texts="没有发现节点错误日志！"></item>
+  <item id="getNodeErrorLogErr" texts="获取节点错误日志发生异常！原因："></item>
+  <item id="noFindSameDataActionTaskStatu" texts="没有节点中心同源单点数据操作任务状态日志！"></item>
+  <item id="RecordNodeErrorLogSuccess" texts="报告节点异常日志成功！"></item>
+  <item id="RecordNodeErrorLogFailed" texts="报告节点异常日志失败！"></item>
+  <item id="RecordNodeErrorLogErr" texts="报告节点异常日志发生异常！原因："></item>
+  <item id="getSameDataActionTaskStatuErr" texts="获取节点中心同源单点数据操作任务状态日志发生异常！原因："></item>
+  <item id="ReportSameDataActionTaskSuccess" texts="报告同源数据操作任务日志成功！"></item>
+  <item id="ReportSameDataActionTaskFailed" texts="报告同源数据操作任务日志失败！"></item>
+  <item id="ReportSameDataActionTaskErr" texts="报告同源数据操作任务日志发生异常！原因："></item>
+  <item id="LoadFrameEnvErr" texts="获取框架环境发生异常！原因："></item>
+  <item id="GetTokenErr" texts="获取令牌发生异常！原因："></item>
+  
+</root>

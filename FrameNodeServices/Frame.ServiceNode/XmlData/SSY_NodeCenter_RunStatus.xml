@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root id="xxx" nodeAddr="xxx" nodeName="xxx" runStatus="xxx" nodeCenterClass="xxx" remarks="xxx" timestampss="xxx">
+  <item id="NCServices" nodeAddr="localhost" nodeName="节点中心服务" runStatus="停止" nodeCenterClass="节点中心服务" remarks="" timestampss="2016-03-01 12:43:57">
+  </item>
+  <item id="NCBServices" nodeAddr="localhost" nodeName="节点中心后台工作服务" runStatus="启动" nodeCenterClass="节点中心后台工作服务" remarks="" timestampss="2016-03-01 12:43:57">
+  </item>
+</root>

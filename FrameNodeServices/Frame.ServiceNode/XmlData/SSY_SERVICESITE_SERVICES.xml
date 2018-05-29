@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root id="xxx" sitecode="xxx" servicecode="xxx" servicename="xxx" service_relaUrl="xxx" remarks="xxx" timestampss="xxx" >
+  <item id="100" sitecode="001" servicecode="FrameNodeSecurityServiceRest" servicename="节点中心安全服务" service_relaUrl="FrameNodeSecurityServiceRest.svc" remarks="xxx" timestampss="xxx"  ></item> 
+  <item id="101" sitecode="001" servicecode="FrameNodeSecurityService" servicename="节点中心安全服务" service_relaUrl="FrameNodeSecurityService.svc" remarks="xxx" timestampss="xxx"  ></item> 
+  <item id="140" sitecode="001" servicecode="FrameManagerNodeServiceRest" servicename="节点中心管理服务" service_relaUrl="FrameManagerNodeServiceRest.svc" remarks="xxx" timestampss="xxx"  ></item> 
+  <item id="141" sitecode="001" servicecode="FrameManagerNodeService" servicename="节点中心管理服务" service_relaUrl="FrameManagerNodeService.svc" remarks="xxx" timestampss="xxx"  ></item> 
+  <item id="200" sitecode="002" servicecode="Frame_FrameManagerServiceRest" servicename="框架管理服务" service_relaUrl="FrameManagerServiceRest.svc" remarks="xxx" timestampss="xxx"  ></item> 
+  <item id="201" sitecode="002" servicecode="Frame_FrameManagerService" servicename="框架管理服务" service_relaUrl="FrameManagerService.svc" remarks="xxx" timestampss="xxx"  ></item> 
+  <item id="202" sitecode="002" servicecode="Frame_FrameSecurityServiceRest" servicename="框架安全服务" service_relaUrl="FrameSecurityServiceRest.svc" remarks="xxx" timestampss="xxx"  ></item>
+  <item id="203" sitecode="002" servicecode="Frame_FrameSecurityService" servicename="框架安全服务" service_relaUrl="FrameSecurityService.svc" remarks="xxx" timestampss="xxx"  ></item>
+</root>

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+***********************************************************************************************
+website.publishproj
+
+警告: 请勿修改此文件，它将用于 Web 发布过程。
+
+版权所有 (C) Microsoft Corporation。保留所有权利。
+
+***********************************************************************************************
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.30319</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{c8ae403b-d703-4927-9729-0e7ed4c965cd}</ProjectGuid>
+    <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
+    <SourceWebVirtualPath>/Frame.ServiceNode</SourceWebVirtualPath>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <SourceWebProject>
+    </SourceWebProject>
+    <SourceWebMetabasePath>
+    </SourceWebMetabasePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- for VS2010 we need to use 10.5 but for VS2012+ we should use VisualStudioVersion -->
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)' =='' and '$(VisualStudioVersion)' == 10.0 ">10.5</WebPublishTargetsVersion>
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)'=='' ">$(VisualStudioVersion)</WebPublishTargetsVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(WebPublishTargetsVersion)</VSToolsPath>
+    <_WebPublishTargetsPath Condition=" '$(_WebPublishTargetsPath)'=='' ">$(VSToolsPath)</_WebPublishTargetsPath>
+    <AssemblyFileVersion Condition="'$(AssemblyFileVersion)' == ''">1.0.0.0</AssemblyFileVersion>
+    <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">1.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttributes Include="AssemblyFileVersion">
+      <Value>$(AssemblyFileVersion)</Value>
+    </AssemblyAttributes>
+    <AssemblyAttributes Include="AssemblyVersion">
+      <Value>$(AssemblyVersion)</Value>
+    </AssemblyAttributes>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common\Common.csproj">
+      <Project>{6862EB10-5CC1-45EC-9B44-2B4C6F99F4DB}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Entitys\Entitys.csproj">
+      <Project>{0FA6F210-96A6-4410-ADE3-702A7F1BEAEC}</Project>
+      <Name>Entitys</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FrameCommon\FrameCommon\FrameCommon.csproj">
+      <Project>{1E6B18F0-4680-4263-A92C-689FF20A940E}</Project>
+      <Name>FrameCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FrameManager\Frame.ServiceInterfaces\Frame.ServiceInterfaces.csproj">
+      <Project>{1E8D8AC3-C4BF-418C-981E-6895EB09C368}</Project>
+      <Name>Frame.ServiceInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebServiceManager\WebServiceManager\WebServiceManager.csproj">
+      <Project>{CB8C00E4-F17C-4859-910B-07E8145D81E1}</Project>
+      <Name>WebServiceManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Frame.ServiceNodeInterfaces\Frame.ServiceNodeInterfaces.csproj">
+      <Project>{1027EAE5-07A6-47BE-92CB-95419917ABD0}</Project>
+      <Name>Frame.ServiceNodeInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Frame.ServiceNodeLibs\Frame.ServiceNodeLibs.csproj">
+      <Project>{7B460D80-23FB-4274-88F1-F351EF9A236F}</Project>
+      <Name>Frame.ServiceNodeLibs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(_WebPublishTargetsPath)\Web\Microsoft.WebSite.Publishing.targets" />
+</Project>

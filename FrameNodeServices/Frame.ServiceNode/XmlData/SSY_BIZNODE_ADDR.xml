@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root id="xxx" url_addr="xxx" moudiden="xxx" use_status="xxx" remarks="xxx" timestampss="xxx">
+  <item id="1" url_addr="http://localhost:28510" moudiden="FrameMgt"  use_status="1" remarks="" timestampss="2016-04-04 20:11:36"></item>
+  <item id="1" url_addr="http://localhost:36570" moudiden="SomebizMgt"  use_status="1" remarks="" timestampss="2017-10-16 13:40:12"></item>
+</root>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root id="xxx" url_addr="xxx" node_typs="xxx" error_desc="xxx" remarks="xxx" timestampss="xxx">
+  <item id="1" url_addr="localhost" node_typs="业务节点" error_desc="errstr" remarks="" timestampss="2016-03-05 14:41:23">
+  </item>
+  <item id="20160307110042280" url_addr="http://localhost:5626" node_typs="" error_desc="操作超时" remarks="" timestampss="20160307110042" />
+  <item id="20160307110330749" url_addr="http://localhost:5626" node_typs="" error_desc="操作超时" remarks="" timestampss="20160307110330" />
+  <item id="20160307120653183" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307120653" />
+  <item id="20160307124814529" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307124814" />
+  <item id="20160307124851940" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307124851" />
+  <item id="2016030712494039" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307124940" />
+  <item id="20160307125539304" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307125539" />
+  <item id="20160307130529630" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307130529" />
+  <item id="20160307130846721" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307130846" />
+  <item id="20160307135535543" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307135535" />
+  <item id="20160307140036370" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307140036" />
+  <item id="20160307140219642" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307140219" />
+  <item id="20160307140544549" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307140544" />
+  <item id="20160307140735430" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307140735" />
+  <item id="20160307141104701" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307141104" />
+  <item id="20160307142758575" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307142758" />
+  <item id="20160307143018761" url_addr="http://localhost:5626" node_typs="" error_desc="远程服务器返回错误: (500) 内部服务器错误。" remarks="" timestampss="20160307143018" />
+  <item id="20160307154930142" url_addr="http://localhost:5626" node_typs="" error_desc="操作超时" remarks="" timestampss="20160307154930" />
+  <item id="20160307204308469" url_addr="http://localhost:5626" node_typs="" error_desc="操作超时" remarks="" timestampss="20160307204308" />
+  <item id="2016030720505097" url_addr="http://localhost:5626" node_typs="" error_desc="操作超时" remarks="" timestampss="20160307205050" />
+  <item id="20160404201136826" url_addr="http://localhost:5626" node_typs="" error_desc="无法连接到远程服务器" remarks="" timestampss="20160404201136" />
+</root>

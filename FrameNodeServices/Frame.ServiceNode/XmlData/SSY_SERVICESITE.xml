@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root id="xxx" sitecode="xxx" sitename="xxx" remarks="xxx" timestampss="xxx" >
+  <item id="1" sitecode="001" sitename="节点中心服务站点" remarks="xxx" timestampss="xxx" ></item> 
+  <item id="2" sitecode="002" sitename="框架服务站点" remarks="xxx" timestampss="xxx" ></item>  
+</root>
