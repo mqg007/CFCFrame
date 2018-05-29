@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+***********************************************************************************************
+website.publishproj
+
+警告: 请勿修改此文件，它将用于 Web 发布过程。
+
+版权所有 (C) Microsoft Corporation。保留所有权利。
+
+***********************************************************************************************
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.30319</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{df15f951-64e4-4811-95d3-90637c162bfd}</ProjectGuid>
+    <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
+    <SourceWebVirtualPath>/Xxx.Service</SourceWebVirtualPath>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <SourceWebProject>
+    </SourceWebProject>
+    <SourceWebMetabasePath>
+    </SourceWebMetabasePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- for VS2010 we need to use 10.5 but for VS2012+ we should use VisualStudioVersion -->
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)' =='' and '$(VisualStudioVersion)' == 10.0 ">10.5</WebPublishTargetsVersion>
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)'=='' ">$(VisualStudioVersion)</WebPublishTargetsVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(WebPublishTargetsVersion)</VSToolsPath>
+    <_WebPublishTargetsPath Condition=" '$(_WebPublishTargetsPath)'=='' ">$(VSToolsPath)</_WebPublishTargetsPath>
+    <AssemblyFileVersion Condition="'$(AssemblyFileVersion)' == ''">1.0.0.0</AssemblyFileVersion>
+    <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">1.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttributes Include="AssemblyFileVersion">
+      <Value>$(AssemblyFileVersion)</Value>
+    </AssemblyAttributes>
+    <AssemblyAttributes Include="AssemblyVersion">
+      <Value>$(AssemblyVersion)</Value>
+    </AssemblyAttributes>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common\Common.csproj">
+      <Project>{6862EB10-5CC1-45EC-9B44-2B4C6F99F4DB}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataAccessLayer\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{31C2AAE3-D01A-4F23-8A65-75CD38EE4B52}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Entitys\Entitys.csproj">
+      <Project>{0FA6F210-96A6-4410-ADE3-702A7F1BEAEC}</Project>
+      <Name>Entitys</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FrameCommon\FrameCommon\FrameCommon.csproj">
+      <Project>{1E6B18F0-4680-4263-A92C-689FF20A940E}</Project>
+      <Name>FrameCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FrameManager\BizExecFacade\BizExecFacade.csproj">
+      <Project>{02978880-C264-47C0-B4C9-87720A70AB0F}</Project>
+      <Name>BizExecFacade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FrameManager\BizExectute\BizExectute.csproj">
+      <Project>{6957F9C3-A3D0-4354-AD21-BFFCDDDB9F34}</Project>
+      <Name>BizExectute</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FrameManager\BizFactory\BizFactory.csproj">
+      <Project>{4637D470-910C-4E5F-9654-322B59ADF867}</Project>
+      <Name>BizFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FrameManager\Biz\Biz.csproj">
+      <Project>{2D118E99-8F1F-47B4-B6C6-3553ED65A5E7}</Project>
+      <Name>Biz</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FrameNodeServices\Frame.ServiceNodeInterfaces\Frame.ServiceNodeInterfaces.csproj">
+      <Project>{1027EAE5-07A6-47BE-92CB-95419917ABD0}</Project>
+      <Name>Frame.ServiceNodeInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebServiceManager\WebServiceManager\WebServiceManager.csproj">
+      <Project>{CB8C00E4-F17C-4859-910B-07E8145D81E1}</Project>
+      <Name>WebServiceManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xxx.BizExecFacade\Xxx.BizExecFacade.csproj">
+      <Project>{522C838D-8D57-415E-8FCC-4B6EBEB0DFBE}</Project>
+      <Name>Xxx.BizExecFacade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xxx.BizExectute\Xxx.BizExectute.csproj">
+      <Project>{A101C00F-ABF2-4331-B886-434A1EEBA27D}</Project>
+      <Name>Xxx.BizExectute</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xxx.BizFactory\Xxx.BizFactory.csproj">
+      <Project>{B445DD6A-0841-4353-B537-E633A2A1E7A8}</Project>
+      <Name>Xxx.BizFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xxx.Biz\Xxx.Biz.csproj">
+      <Project>{6B186E8F-AF4A-49AF-9E52-6703487001D6}</Project>
+      <Name>Xxx.Biz</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xxx.Entities\Xxx.Entities.csproj">
+      <Project>{6191A786-671A-4044-ADB4-5A6813CC9E6B}</Project>
+      <Name>Xxx.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xxx.ServiceInterfaces\Xxx.ServiceInterfaces.csproj">
+      <Project>{962B54F6-BED5-49EE-BB0A-B95CA2113E7A}</Project>
+      <Name>Xxx.ServiceInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xxx.ServiceLibs\Xxx.ServiceLibs.csproj">
+      <Project>{5368AB1F-5119-46DD-816E-E26832D7A9D5}</Project>
+      <Name>Xxx.ServiceLibs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(_WebPublishTargetsPath)\Web\Microsoft.WebSite.Publishing.targets" />
+</Project>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root id="xxx" texts="xxx">
+  <item id="loginok_notoken" texts="登陆成功，没有获取到访问令牌！"></item>
+  <item id="resetPasswordFailed" texts="重置密码失败！"></item>
+  <item id="resetPasswordErr" texts="重置密码发生未知异常！原因："></item>
+  <item id="quitSystemFailed" texts="退出系统失败！"></item>
+  <item id="quitSystemErr" texts="退出系统发生未知异常！原因："></item>
+  <item id="logFunctionName_systemLogin" texts="系统登录"></item>
+  <item id="logFunctionName_loginSuccess" texts="登录成功！"></item>
+  <item id="logFunctionName_quitSystem" texts="退出系统"></item>
+  <item id="logFunctionName_quitSuccess" texts="退出成功！"></item>
+  <item id="logFunctionName_resetPassword" texts="重置或修改用户密码"></item>
+  <item id="logFunctionName_resetPasswordSuccess" texts="重置或修改成功！"></item>
+  <item id="noticeinfo_setDictType" texts="必须设置字典类型！"></item>
+  <item id="noticeinfo_setDictIden" texts="必须设置字典识别！"></item>
+  <item id="noticeinfo_checkFieldEmpty" texts="该字段{0}不能为空。请检查！"></item>
+  <item id="noticeinfo_checkFieldLength" texts="该字段{0}长度超限，必须小于等于{1}。字段值为:{2}请检查！"></item>
+  <item id="logFunctionName_resetPassword" texts="重置或修改用户密码"></item>
+  <item id="logFunctionName_resetPassword" texts="重置或修改用户密码"></item>
+  <item id="logFunctionName_managerGroup" texts="用户组"></item>
+  <item id="logFunctionName_managerGroupResult" texts="编辑用户组成功！"></item>
+  <item id="logFunctionName_managerUser" texts="用户"></item>
+  <item id="logFunctionName_managerUserResult" texts="编辑用户成功！"></item>
+  <item id="logFunctionName_managerFunction" texts="功能"></item>
+  <item id="logFunctionName_managerFunctionResult" texts="编辑功能成功！"></item>
+  <item id="logFunctionName_managerGroupUser" texts="权限配置"></item>
+  <item id="logFunctionName_managerGroupUserResult" texts="配置用户组拥有的用户成功！"></item>
+  <item id="logFunctionName_managerGroupPage" texts="权限配置"></item>
+  <item id="logFunctionName_managerGroupPageResult" texts="配置用户组拥有的功能成功！"></item>
+  <item id="logFunctionName_managerFrameDict" texts="公共字典"></item>
+  <item id="logFunctionName_managerFrameDictResult" texts="编辑公共字典成功！"></item>
+  <item id="logFunctionName_managerBizDict" texts="业务字典"></item>
+  <item id="logFunctionName_managerBizDictResult" texts="编辑业务字典成功！"></item>
+  
+
+  
+
+</root>

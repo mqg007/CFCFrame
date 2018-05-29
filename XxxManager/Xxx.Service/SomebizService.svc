@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Xxx.ServiceLibs.SomebizService" Factory="System.ServiceModel.Activation.ServiceHostFactory" %>
