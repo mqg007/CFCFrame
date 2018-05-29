@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root id= "xxx"  url_addr= "xxx" moudname= "xxx" moudiden= "xxx" servname="xxx" serviden="xxx" servcodename="xxx" use_status= "xxx" remarks="xxx" version= "xxx"
+      servclass="xxx" servtype="xxx" >
+  <item id= "frameNodeR100"  url_addr= "http://localhost:10081" moudname= "框架节点模块" moudiden= "FrameNode" servname="节点安全服务" serviden="framenodesecu" 
+        servcodename="FrameNodeSecurityServiceRest.svc" use_status= "1" remarks="" version= "1.0" servclass="rest" servtype="frameNode"></item>
+  <item id= "frameNodeN100"  url_addr= "http://localhost:10081" moudname= "框架节点模块" moudiden= "FrameNode" servname="节点安全服务" serviden="framenodesecu"
+        servcodename="FrameNodeSecurityService.svc" use_status= "1" remarks="" version= "1.0" servclass="normal" servtype="frameNode"></item>
+  
+  <item id= "frameNodeR105"  url_addr= "http://localhost:10081" moudname= "框架节点模块" moudiden= "FrameNode" servname="节点管理服务" serviden="framenodemgt" 
+        servcodename="FrameManagerNodeServiceRest.svc" use_status= "1" remarks="" version= "1.0" servclass="rest" servtype="frameNode"></item>  
+  <item id= "frameNodeN105"  url_addr= "http://localhost:10081" moudname= "框架节点模块" moudiden= "FrameNode" servname="节点管理服务" serviden="framenodemgt"
+        servcodename="FrameManagerNodeService.svc" use_status= "1" remarks="" version= "1.0" servclass="normal" servtype="frameNode"></item>    
+  
+  <item id= "frameMgtR100"  url_addr= "" moudname= "框架管理模块" moudiden= "FrameMgt" servname="框架安全服务" serviden="framesecurity"
+        servcodename="FrameSecurityServiceRest.svc" use_status= "1" remarks="" version= "1.0" servclass="rest" servtype="frameMgt"></item>
+  <item id= "frameMgtN100"  url_addr= "" moudname= "框架管理模块" moudiden= "FrameMgt" servname="框架安全服务" serviden="framesecurity"
+        servcodename="FrameSecurityService.svc" use_status= "1" remarks="" version= "1.0" servclass="normal" servtype="frameMgt"></item>
+
+  <item id= "frameMgtR105"  url_addr= "" moudname= "框架管理模块" moudiden= "FrameMgt" servname="框架管理服务" serviden="frameManager"
+        servcodename="FrameManagerServiceRest.svc" use_status= "1" remarks="" version= "1.0" servclass="rest" servtype="frameMgt"></item>
+  <item id= "frameMgtN105"  url_addr= "" moudname= "框架管理模块" moudiden= "FrameMgt" servname="框架管理服务" serviden="frameManager"
+        servcodename="FrameManagerService.svc" use_status= "1" remarks="" version= "1.0" servclass="normal" servtype="frameMgt"></item> 
+  
+</root>

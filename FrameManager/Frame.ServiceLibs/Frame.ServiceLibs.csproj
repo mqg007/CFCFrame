@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F5D9B48F-E6F7-4A8D-A4AA-2B0ACC698EEA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Frame.ServiceLibs</RootNamespace>
+    <AssemblyName>Frame.ServiceLibs</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FrameManagerService.cs" />
+    <Compile Include="FrameManagerServiceRest.cs" />
+    <Compile Include="FrameSecurityService.cs" />
+    <Compile Include="FrameSecurityServiceRest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common\Common.csproj">
+      <Project>{6862eb10-5cc1-45ec-9b44-2b4c6f99f4db}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Entitys\Entitys.csproj">
+      <Project>{0fa6f210-96a6-4410-ade3-702a7f1beaec}</Project>
+      <Name>Entitys</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FrameCommon\FrameCommon\FrameCommon.csproj">
+      <Project>{1e6b18f0-4680-4263-a92c-689ff20a940e}</Project>
+      <Name>FrameCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FrameNodeServices\Frame.ServiceNodeInterfaces\Frame.ServiceNodeInterfaces.csproj">
+      <Project>{1027eae5-07a6-47be-92cb-95419917abd0}</Project>
+      <Name>Frame.ServiceNodeInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebServiceManager\WebServiceManager\WebServiceManager.csproj">
+      <Project>{cb8c00e4-f17c-4859-910b-07e8145d81e1}</Project>
+      <Name>WebServiceManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BizExecFacade\BizExecFacade.csproj">
+      <Project>{02978880-c264-47c0-b4c9-87720a70ab0f}</Project>
+      <Name>BizExecFacade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Biz\Biz.csproj">
+      <Project>{2d118e99-8f1f-47b4-b6c6-3553ed65a5e7}</Project>
+      <Name>Biz</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Frame.ServiceInterfaces\Frame.ServiceInterfaces.csproj">
+      <Project>{1e8d8ac3-c4bf-418c-981e-6895eb09c368}</Project>
+      <Name>Frame.ServiceInterfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

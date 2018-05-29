@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root id="xxx" texts="xxx">
+  <item id="loginok_notoken" texts="登陆成功，没有获取到访问令牌！"></item>
+  <item id="loginok_exist" texts="已经登陆，不能重复登录！"></item>
+  <item id="loginok_gettokenerr" texts="获取令牌发生异常，原因："></item>
+  <item id="loginok" texts="登陆成功！"></item>
+  <item id="loginerr_nocurruser" texts="登陆失败！原因：不存在该用户名！"></item>
+  <item id="loginerr_findexception" texts="登陆发生未知异常！原因："></item>
+  <item id="GetTokenVerifyUserErr" texts="获取令牌验证用户发生未知异常！原因："></item>
+  <item id="nocurruser" texts="获取令牌校验用户失败！原因：用户名和密码不匹配！"></item>
+  <item id="loginok_firstlogin" texts="该用户首次登陆，请登陆后修改密码！"></item>
+  <item id="loginok_oversecuritytime" texts="该用户密码超过系统安全间隔时间({0})小时，请登陆后修改密码！"></item>
+  <item id="nocurruser" texts="获取令牌校验用户失败！原因：用户名和密码不匹配！"></item>
+  <item id="loginerr_userNotPassword" texts="用户名和密码不匹配！"></item>
+  <item id="loginerr_Locked" texts="用户已被锁定，请联系管理员解锁！"></item>
+  <item id="loginerr_Enabled" texts="用户已被禁用，请联系管理员解禁！"></item>
+
+  
+
+
+
+
+</root>

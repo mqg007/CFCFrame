@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root id="xxx" texts="xxx">
+  <item id="successStr" texts="成功！"></item>
+  <item id="errorStr" texts="失败！原因："></item>
+  <item id="noFindData" texts="没有数据！"></item>
+  <item id="findDataErr" texts="查询数据发生未知异常！原因："></item>
+  <item id="operateErr" texts="操作发生未知异常！原因："></item>
+  <item id="anaTokenErr" texts="分析令牌发生未知异常！原因："></item>
+  <item id="noFindTokenErr" texts="没有发现令牌，没有权限访问服务！"></item>
+  <item id="ana2CheckTokenErr" texts="分析检查令牌发生未知异常！原因："></item>
+  <item id="UnKnownExceptionErr" texts="发生未知异常！原因："></item>
+  <item id="noFindSystem" texts="没有获取到系统时间！"></item>
+  <item id="noMakeID" texts="没有生成ID数据！"></item>
+  <item id="MakeIDErr" texts="生成ID数据发生未知异常！原因："></item>
+  <item id="findDataRepat" texts="数据已存在！"></item>
+  <item id="checkDataRepatErr" texts="检查数据是否存在库中发生异常！原因："></item>
+
+
+</root>
