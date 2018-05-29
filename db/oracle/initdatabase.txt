@@ -1,0 +1,28 @@
+create tablespace FRAMEDATA
+datafile 'D:\xxx\FRAMEDATA.dbf'
+size 1024m  
+autoextend on  
+next 100m 
+maxsize unlimited; 
+
+
+create temporary tablespace FRAMEDATATMPTMP
+tempfile 'D:\xxx\FRAMEDATATMP.dbf'
+size 500m ; 
+
+
+
+-- Create the user 
+create user FRAMEUSER
+  identified by "frameuser"
+  default tablespace FRAMEDATA
+  temporary tablespace FRAMEDATATMPTMP
+  profile DEFAULT
+  password expire;
+-- Grant/Revoke role privileges 
+grant connect to FRAMEUSER with admin option;
+grant dba to  FRAMEUSER with admin option;
+grant resource to FRAMEUSER;
+-- Grant/Revoke system privileges 
+grant create view to FRAMEUSER;
+grant unlimited tablespace to FRAMEUSER with admin option;
