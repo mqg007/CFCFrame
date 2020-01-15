@@ -15,6 +15,9 @@ using System.Runtime.Remoting;
 using System.Reflection;
 using System.Net;
 using System.ComponentModel;
+using System.Web.Script.Serialization;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 
 namespace Common
@@ -96,6 +99,16 @@ namespace Common
         static public string FilterNull(string str)
         {
             return str == null ? string.Empty : str;
+        }
+
+
+        /// <summary>
+        /// 获取当前时间
+        /// </summary>
+        /// <returns></returns>
+        public static string GetCurrentDatetime()
+        {
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         #region 获取年份字符串
@@ -1690,9 +1703,20 @@ namespace Common
                 Directory.CreateDirectory(logPath);
             }
 
-            StreamWriter sw = File.AppendText(logPath + "\\" + DateTime.Now.ToString("yyyyMMdd") + ".txt");
-            sw.WriteLine(logContent);
-            sw.Close();
+            string filepath = logPath + "\\" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
+
+            try
+            {
+                using (System.IO.StreamWriter sw = new StreamWriter(filepath, true))
+                {
+                    sw.WriteLine(logContent);
+                    sw.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //发生异常不处理，缺点会少一条高频记录日志
+            }
         }
 
         /// <summary>
@@ -1710,11 +1734,54 @@ namespace Common
                     Directory.CreateDirectory(logPath);
                 }
 
-                StreamWriter sw = File.AppendText(logPath + "\\" + DateTime.Now.ToString("yyyyMMdd") + ".txt");
-                sw.WriteLine(logContent);
-                sw.Close();
+                try
+                {
+                    string filepath = logPath + "\\" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
 
+                    using (System.IO.StreamWriter sw = new StreamWriter(filepath, true))
+                    {
+                        sw.WriteLine(logContent);
+                        sw.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //发生异常不处理，缺点会少一条高频记录日志
+                }
             }            
+        }
+
+        /// <summary>
+        /// 记录日志
+        /// </summary>
+        /// <param name="logContent"></param>
+        /// <param name="logPath"></param>
+        /// <param name="isExecute">Y 记录日志  N 不进行记录</param>
+        /// <param name="fileName">文件名，只支持英文</param>
+        public static void RecordLog(string logContent, string logPath, string isExecute, string fileName)
+        {
+            if (isExecute.ToUpper() == "Y")
+            {
+                if (!Directory.Exists(logPath))
+                {
+                    Directory.CreateDirectory(logPath);
+                }
+
+                try
+                {
+                    string filepath = logPath + "\\" + fileName + "_" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
+
+                    using (System.IO.StreamWriter sw = new StreamWriter(filepath, true))
+                    {
+                        sw.WriteLine(logContent);
+                        sw.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //发生异常不处理，缺点会少一条高频记录日志
+                }
+            }
         }
 
         #endregion
@@ -2115,8 +2182,388 @@ namespace Common
             return result;
         }
 
+
+        /// <summary>
+        /// 发送http请求获取返回结果
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="reqMethord"></param>
+        /// <param name="contentType"></param>
+        /// <param name="reqdatas"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public static string RequestHttp(string url, string reqMethord, string contentType, string reqdatas, string token)
+        {
+            string resstr = @"";
+
+            #region 原生态方式
+
+            var request = HttpWebRequest.Create(url) as HttpWebRequest;
+            request.ContentType = contentType;
+            request.Method = reqMethord.ToUpper();
+            request.Timeout = 60000;
+            request.ReadWriteTimeout = request.Timeout;
+            if (!string.IsNullOrEmpty(token))
+            {
+                request.Headers.Add("token", token);
+            }
+
+            if (reqMethord.ToUpper() == "POST")
+            {
+                byte[] sendData = Encoding.UTF8.GetBytes(reqdatas);
+                if (sendData != null && sendData.Length > 0)
+                {
+                    using (var streamRequst = request.GetRequestStream())
+                    {
+                        streamRequst.Write(sendData, 0, sendData.Length);
+                    }
+                }
+                else
+                {
+                    request.ContentLength = 0;
+                }
+            }
+            else if (reqMethord.ToUpper() == "GET")
+            {
+                request.ContentLength = 0;
+            }
+            else
+            {
+                request.ContentLength = 0;
+            }
+            try
+            {
+                var response = request.GetResponse();
+                using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                {
+                    resstr = reader.ReadToEnd().TrimStart("\u005C\u0022".ToCharArray()).TrimEnd("\u005C\u0022".ToCharArray()).Replace("\\", "");                
+                    reader.Close();
+                }
+            }
+            catch (Exception exs)
+            {
+                throw exs;
+            }
+
+            #endregion
+
+            #region webclient方式
+
+            //using (System.Net.WebClient wc = new System.Net.WebClient())
+            //{
+            //    wc.Headers.Add("Content-Type", contentType);
+            //    if (!string.IsNullOrEmpty(token))
+            //    {
+            //        wc.Headers.Add("token", token);
+            //    }                
+            //    if (reqMethord.ToUpper() == "POST")
+            //    {
+            //        byte[] sendData = Encoding.UTF8.GetBytes(reqdatas);
+            //        wc.Headers.Add("ContentLength", sendData.Length.ToString());
+            //        byte[] recData = wc.UploadData(url, reqMethord.ToUpper(), sendData);
+            //        resstr = Encoding.UTF8.GetString(recData).TrimStart("\u005C\u0022".ToCharArray()).TrimEnd("\u005C\u0022".ToCharArray()).Replace("\\", ""); ;
+            //    }
+            //    else
+            //    {
+            //        resstr = wc.DownloadString(url);
+            //    }
+            //}
+
+            #endregion
+
+            #region HttpClient方式
+
+            //using (var client = new HttpClient())
+            //{
+            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
+            //    var content = new StringContent(reqdatas, Encoding.UTF8);
+            //    content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+            //    var tmpResult = client.PostAsync(url, content).Result;
+            //    tmpResult.EnsureSuccessStatusCode();
+            //    resstr = tmpResult.Content.ReadAsStringAsync().Result;
+            //}
+
+            #endregion
+
+            return Utility.FormatReqDatas(Utility.FormatRespDatas(resstr));
+        }
+
         #endregion
 
+
+        #region 字符串相关转换处理
+
+        /// <summary>
+        /// 格式化序列化结果
+        /// </summary>
+        /// <param name="oldstr"></param>
+        /// <returns></returns>
+        public static string FormatReqDatas(string oldstr)
+        {
+            return oldstr.Replace("\"'", "'").Replace("'\"", "'");
+        }
+
+        /// <summary>
+        /// 格式化序列化结果
+        /// </summary>
+        /// <param name="oldstr"></param>
+        /// <returns></returns>
+        public static string FormatRespDatas(string oldstr)
+        {
+            return oldstr.Replace("u0027", "'");
+        }
+
+        /// <summary>
+        /// 将字符串转换为字符串数组,按位转换,|分割
+        /// </summary>
+        /// <param name="oldstr"></param>
+        /// <param name="spliteChar"></param>
+        /// <returns></returns>
+        public static string FormatStringToCharacterArray(string oldstr)
+        {
+            string reqdataTmp = "";
+            char[] values = oldstr.ToCharArray();
+            foreach (char letter in values)
+            {
+                reqdataTmp += letter.ToString() + "|";
+            }
+
+            return reqdataTmp.TrimEnd('|');
+        }
+
+        /// <summary>
+        /// 数字和字节之间互转
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static int IntToBitConverter(int num)
+        {
+            int temp = 0;
+            byte[] bytes = BitConverter.GetBytes(num);//将int32转换为字节数组
+            temp = BitConverter.ToInt32(bytes, 0);//将字节数组内容再转成int32类型
+            return temp;
+        }
+
+        /// <summary>
+        /// 将字符串转为16进制字符，允许中文
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="encode"></param>
+        /// <returns></returns>
+        public static string StringToHexString(string s, Encoding encode)
+        {
+            byte[] b = encode.GetBytes(s);//按照指定编码将string编程字节数组
+            string result = string.Empty;
+            for (int i = 0; i < b.Length; i++)//逐字节变为16进制字符
+            {
+                result += Convert.ToString(b[i], 16) + " ";
+            }
+            return result;
+        }
+        /// <summary>
+        /// 将16进制字符串转为字符串
+        /// </summary>
+        /// <param name="hs"></param>
+        /// <param name="encode"></param>
+        /// <returns></returns>
+        public static string HexStringToString(string hs, Encoding encode)
+        {
+            string strTemp = "";
+            byte[] b = new byte[hs.Length / 2];
+            for (int i = 0; i < hs.Length / 2; i++)
+            {
+                strTemp = hs.Substring(i * 2, 2);
+                b[i] = Convert.ToByte(strTemp, 16);
+            }
+            //按照指定编码将字节数组变为字符串
+            return encode.GetString(b);
+        }
+        /// <summary>
+        /// byte[]转为16进制字符串
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string ByteToHexStr(byte[] bytes)
+        {
+            string returnStr = "";
+            if (bytes != null)
+            {
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    returnStr += bytes[i].ToString("X2");
+                }
+            }
+            return returnStr;
+        }
+
+        /// <summary>
+        /// 十进制字符串转为16进制字符串
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string IntStrToHexStr(string bytes)
+        {
+            return int.Parse(bytes).ToString("X2");
+        }
+
+        /// <summary>
+        /// 将16进制的字符串转为byte[]
+        /// </summary>
+        /// <param name="hexString"></param>
+        /// <returns></returns>
+        public static byte[] StrToHexByte(string hexString)
+        {
+            hexString = hexString.Replace(" ", "");
+            if ((hexString.Length % 2) != 0)
+                hexString += " ";
+            byte[] returnBytes = new byte[hexString.Length / 2];
+            for (int i = 0; i < returnBytes.Length; i++)
+                returnBytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
+            return returnBytes;
+        }
+
+
+        /// <summary>
+        /// 单个ASCII转字符串
+        /// </summary>
+        /// <param name="asciiCode"></param>
+        /// <returns></returns>
+        public static string Ascii2Str(int asciiCode)
+        {
+            if (asciiCode >= 0 && asciiCode <= 255)
+            {
+                System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+                byte[] byteArray = new byte[] { (byte)asciiCode };
+                string strCharacter = asciiEncoding.GetString(byteArray);
+                return (strCharacter);
+            }
+            else
+            {
+                throw new Exception("ASCII Code is not valid.");
+            }
+        }
+
+        /// <summary>
+        /// 单个字符的字符串转ASCII
+        /// </summary>
+        /// <param name="character"></param>
+        /// <returns></returns>
+        public static int Str2Ascii(string character)
+        {
+            if (character.Length == 1)
+            {
+                System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+                int intAsciiCode = (int)asciiEncoding.GetBytes(character)[0];
+                return (intAsciiCode);
+            }
+            else
+            {
+                throw new Exception("Character is not valid.");
+            }
+        }
+
+        /// <summary>
+        /// 单个字符的字符串转ASCII字符串
+        /// </summary>
+        /// <param name="character"></param>
+        /// <returns></returns>
+        public static string Str2AsciiStr(string character)
+        {
+            if (character.Length == 1)
+            {
+                System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+                int intAsciiCode = (int)asciiEncoding.GetBytes(character)[0];
+                return Convert.ToString(intAsciiCode);
+            }
+            else
+            {
+                throw new Exception("Character is not valid.");
+            }
+        }
+
+
+        /// <summary>
+        /// 将多个字符的字符串转换为ascii码字符串
+        /// </summary>
+        /// <param name="tmpstr"></param>
+        /// <returns></returns>
+        public static string Strs2AsciiStr(string tmpstr)
+        {
+            byte[] array = System.Text.Encoding.ASCII.GetBytes(tmpstr);  //数组array为对应的ASCII数组   
+
+            string ASCIIstr2 = string.Empty;
+            for (int i = 0; i < array.Length; i++)
+            {
+                int asciicode = (int)(array[i]);
+                ASCIIstr2 += Convert.ToString(asciicode);//字符串ASCIIstr2 为对应的ASCII字符串
+            }
+
+            return ASCIIstr2;
+        }
+
+        /// <summary>
+        /// 将多个字符的ascii码字符串转换为字符串
+        /// </summary>
+        /// <param name="asciistr"></param>
+        /// <returns></returns>
+        public static string AsciiStr2Strs(string asciistr)
+        {
+            byte[] array = System.Text.Encoding.ASCII.GetBytes(asciistr);  //数组array为对应的ASCII数组   
+            string resStr = string.Empty;
+            for (int i = 0; i < array.Length; i++)
+            {
+                char asciiChar = (char)(array[i]);
+                resStr += Convert.ToString(asciiChar);//字符串ASCIIstr2 为对应的ASCII字符串
+            }
+            return resStr;
+        }
+
+        /// <summary>
+        /// 将多个字符的ascii码字符串转换为byte[]
+        /// </summary>
+        /// <param name="asciistr"></param>
+        /// <returns></returns>
+        public static byte[] AsciiStr2ByteArray(string asciistr)
+        {
+            return System.Text.Encoding.ASCII.GetBytes(asciistr);  //数组array为对应的ASCII数组   
+        }
+
+        /// <summary>
+        /// 16进制的ASCII串转字符串
+        /// </summary>
+        /// <param name="asciiCode"></param>
+        /// <returns></returns>
+        public static string Ascii2StrsFor16(string asciiCode)
+        {
+            byte[] buff = new byte[asciiCode.Length / 2];
+            int index = 0;
+            for (int i = 0; i < asciiCode.Length; i += 2)
+            {
+                buff[index] = Convert.ToByte(asciiCode.Substring(i, 2), 16);
+                ++index;
+            }
+
+            return Encoding.Default.GetString(buff);
+        }
+
+        /// <summary>
+        /// 字符串转16进制的ASCII串
+        /// </summary>
+        /// <param name="character"></param>
+        /// <returns></returns>
+        public static string Str2AsciisFor16(string character)
+        {
+            StringBuilder resStr = new StringBuilder();
+            byte[] str16 = System.Text.ASCIIEncoding.Default.GetBytes(character);
+            foreach (byte str in str16)
+            {
+                resStr.Append(str.ToString("x"));
+            }
+
+            return resStr.ToString();
+        }
+
+        #endregion
 
 
         //bootom
