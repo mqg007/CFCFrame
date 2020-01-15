@@ -55,6 +55,8 @@ namespace DataAccessLayer.DataBaseFactory
     /// </summary>
     public abstract class AbstractDBFactory
     {
+        protected int maxCnn = 10; //设置最大允许10个数据库连接
+
         protected string connectionString;
 
         /// <summary>
@@ -204,6 +206,18 @@ namespace DataAccessLayer.DataBaseFactory
 
         /// <summary>
         /// 根据SQL语句进行查询，将查询结果保存到数据集中返回。
+        /// 单独服务于多线程处理，多线程且高频访问的业务查询，mqg于20181106增加
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public virtual DataSet GetDataSetThreadSafe(string sql, SqlExecType sqlexectype, params IDataParameter[] paras)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 根据SQL语句进行查询，将查询结果保存到数据集中返回。
         /// </summary>
         /// <param name="sql"></param>
         /// <param name="sqlexectype">执行SQL类型</param>
@@ -287,6 +301,15 @@ namespace DataAccessLayer.DataBaseFactory
         #endregion
 
         #region 相关关键符号
+
+        /// <summary>
+        /// 拼接字符串
+        /// </summary>
+        /// <returns></returns>
+        public virtual string ConnectChar()
+        {
+            return "";
+        }
 
         /// <summary>
         /// 拼接字符串

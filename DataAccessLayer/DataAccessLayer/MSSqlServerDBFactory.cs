@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Data.Sql;
+using System.Threading;
 
 namespace DataAccessLayer.DataBaseFactory
 {
@@ -19,6 +20,8 @@ namespace DataAccessLayer.DataBaseFactory
         public SqlCommand cmd = null;
         public SqlDataAdapter adapter = null;
 
+        //mqg于20180928增加，扩展增加数据库连接池
+        public List<SqlConnection> cnnList = new List<SqlConnection>();
 
         /// <summary>
         /// 获得一个数据库链接。
@@ -26,7 +29,43 @@ namespace DataAccessLayer.DataBaseFactory
         /// <returns>数据库链接</returns>
         public override IDbConnection GetConnection()
         {
-            cnn = new SqlConnection(base.ConnectionString);
+            //if (cnn == null || cnn.ConnectionString == null || cnn.ConnectionString == string.Empty)
+            //{
+            //    cnn = new SqlConnection(base.ConnectionString);
+            //}
+            //if (cnn.State != ConnectionState.Open)
+            //{
+            //    cnn.Open();
+            //}
+            //return cnn;
+
+            //mqg于20180928增加，扩展连接池处理           
+            if (base.maxCnn == cnnList.Count)
+            {
+                //连接池满从连接池获取
+                Random rdom = new Random();
+                int tmpIndex = rdom.Next(0, cnnList.Count);
+                cnn = cnnList[tmpIndex];             
+
+                if (cnn == null || cnn.ConnectionString == null || cnn.ConnectionString == string.Empty)
+                {
+                    cnnList.Remove(cnnList[tmpIndex]);
+                    cnn = new SqlConnection(base.ConnectionString);
+                    cnn.Open();
+                    cnnList.Add(cnn);
+                }
+            }
+            else
+            {
+                SqlConnection tmpcnn = new SqlConnection(base.ConnectionString);
+                tmpcnn.Open();
+                if (base.maxCnn >= cnnList.Count)
+                {
+                    cnnList.Add(tmpcnn);
+                }
+                cnn = tmpcnn;
+            }
+
             return cnn;
         }
 
@@ -40,7 +79,6 @@ namespace DataAccessLayer.DataBaseFactory
 
             try
             {
-                cnnTrans.Open();
                 trans = cnnTrans.BeginTransaction();
             }
             catch (Exception e)
@@ -209,20 +247,11 @@ namespace DataAccessLayer.DataBaseFactory
             {
                 if (trans == null)
                 {
-                    cnn = (SqlConnection)this.GetConnection();
-                    if (cnn.State == ConnectionState.Closed)
-                    {
-                        cnn.Open();
-                    }
-
+                    cnn = (SqlConnection)this.GetConnection();    
                     cmd = (SqlCommand)this.GetCommand(sql, sqlexectype, (IDbConnection)cnn, (IDbTransaction)trans, paras);
                 }
                 else
-                {
-                    if (trans.Connection.State == ConnectionState.Closed)
-                    {
-                        trans.Connection.Open();
-                    }
+                {  
                     cmd = (SqlCommand)this.GetCommand(sql, sqlexectype, trans.Connection, trans, paras);
                 }
 
@@ -234,11 +263,12 @@ namespace DataAccessLayer.DataBaseFactory
             }
             finally
             {
-                if (trans == null && cnn != null)
-                {
-                    cnn.Close();
-                    cnn.Dispose();
-                }
+                //mqg于20180928增加，这里不在释放连接，交给连接池管理
+                //if (trans == null && cnn != null)
+                //{
+                //    cnn.Close();
+                //    cnn.Dispose();
+                //}
             }
 
             return tempint;
@@ -261,18 +291,10 @@ namespace DataAccessLayer.DataBaseFactory
                 if (trans == null)
                 {
                     cnn = (SqlConnection)this.GetConnection();
-                    if (cnn.State == ConnectionState.Closed)
-                    {
-                        cnn.Open();
-                    }
                     cmd = (SqlCommand)this.GetCommand(sql, sqlexectype, (IDbConnection)cnn, (IDbTransaction)trans, paras);
                 }
                 else
                 {
-                    if (trans.Connection.State == ConnectionState.Closed)
-                    {
-                        trans.Connection.Open();
-                    }
                     cmd = (SqlCommand)this.GetCommand(sql, sqlexectype, trans.Connection, trans, paras);
                 }
 
@@ -284,11 +306,12 @@ namespace DataAccessLayer.DataBaseFactory
             }
             finally
             {
-                if (trans == null && cnn != null)
-                {
-                    cnn.Close();
-                    cnn.Dispose();
-                }
+                //mqg于20180928增加，这里不在释放连接，交给连接池管理
+                //if (trans == null && cnn != null)
+                //{
+                //    cnn.Close();
+                //    cnn.Dispose();
+                //}
             }
 
             return tempobj;
@@ -306,10 +329,6 @@ namespace DataAccessLayer.DataBaseFactory
             try
             {
                 cnn = (SqlConnection)this.GetConnection();
-                if (cnn.State == ConnectionState.Closed)
-                {
-                    cnn.Open();
-                }
                 cmd = (SqlCommand)this.GetCommand(sql, sqlexectype, (IDbConnection)cnn, null, paras);
                 reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             }
@@ -319,8 +338,10 @@ namespace DataAccessLayer.DataBaseFactory
             }
             finally
             {
-                cnn.Close();
-                cnn.Dispose();
+                //mqg于20180928增加，这里不在释放连接，交给连接池管理
+                reader.Close();
+                //cnn.Close();
+                //cnn.Dispose();
             }
 
             return reader;
@@ -335,34 +356,95 @@ namespace DataAccessLayer.DataBaseFactory
         public override DataSet GetDataSet(string sql, SqlExecType sqlexectype, params IDataParameter[] paras)
         {
             DataSet ds = new DataSet();
+
+            //mqg于20181104增加，单独处理MS SQL查询，不进入连接池管理, 不然多线程处理有时会报错
+            //try
+            //{
+            //    cnn = (SqlConnection)this.GetConnection();
+            //    cmd = (SqlCommand)this.GetCommand(sql, sqlexectype, cnn, null, paras);
+
+            //    adapter = new SqlDataAdapter(cmd);
+            //    adapter.Fill(ds, "tableName");
+            //}
+            //catch (Exception err)
+            //{               
+            //    throw new Exception("SQL query error!" + err.Message + "\r\n SQL script is：" + sql, err);
+            //}
+            //finally
+            //{               
+            //    adapter.Dispose();
+            //    cnn.Close();
+            //    cnn.Dispose();               
+            //}
+
+            //为了不独立实现支持多线程的处理，又能允许多线程应用，只能牺牲资源每次新建连接
+            //sql server需要特殊处理，必须的关闭连接才能释放command，所以不能只接用连接池的连接
+            SqlDataAdapter adapterTmp = new SqlDataAdapter();
+            SqlConnection connection = new SqlConnection(base.ConnectionString);
             try
             {
-                cnn = (SqlConnection)this.GetConnection();
-                if (cnn.State == ConnectionState.Closed)
-                {
-                    cnn.Open();
-                }
-                cmd = (SqlCommand)this.GetCommand(sql, sqlexectype, cnn, null, paras);
-
-                adapter = new SqlDataAdapter(cmd);
-
-                adapter.Fill(ds, "tableName");
+                connection.Open();
+                SqlCommand cmdTmp = (SqlCommand)this.GetCommand(sql, sqlexectype, connection, null, paras);
+                adapterTmp.SelectCommand = cmdTmp;
+                adapterTmp.Fill(ds, "tableName");                
             }
             catch (Exception err)
-            {               
+            {
                 throw new Exception("SQL query error!" + err.Message + "\r\n SQL script is：" + sql, err);
             }
-
             finally
             {
-                adapter.Dispose();
-                cnn.Close();
-                cnn.Dispose();
+                adapterTmp.Dispose();
+                connection.Close();
+                connection.Dispose();
             }
+
+            //这种方式不满足多线程
+            //using (SqlConnection connection = new SqlConnection(base.ConnectionString))
+            //{
+            //    SqlDataAdapter adapter = new SqlDataAdapter();
+            //    SqlCommand cmdTmp = (SqlCommand)this.GetCommand(sql, sqlexectype, connection, null, paras);
+            //    adapter.SelectCommand = cmdTmp;
+            //    adapter.Fill(ds);
+            //}
 
             return ds;
         }
 
+        /// <summary>
+        /// 根据SQL语句进行查询，将查询结果保存到数据集中返回。
+        /// 单独服务于多线程处理，多线程且高频访问的业务查询，mqg于20181106增加
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public override DataSet GetDataSetThreadSafe(string sql, SqlExecType sqlexectype, params IDataParameter[] paras)
+        {
+            DataSet ds = new DataSet();
+
+            //为了不独立实现支持多线程的处理，又能允许多线程应用，只能牺牲资源每次新建连接
+            SqlDataAdapter adapterTmp = new SqlDataAdapter();
+            SqlConnection connection = new SqlConnection(base.ConnectionString);
+            try
+            {
+                connection.Open();
+                SqlCommand cmdTmp = (SqlCommand)this.GetCommand(sql, sqlexectype, connection, null, paras);
+                adapterTmp.SelectCommand = cmdTmp;
+                adapterTmp.Fill(ds, "tableName");
+            }
+            catch (Exception err)
+            {
+                throw new Exception("SQL query error!" + err.Message + "\r\n SQL script is：" + sql, err);
+            }
+            finally
+            {
+                adapterTmp.Dispose();
+                connection.Close();
+                connection.Dispose();
+            }
+
+            return ds;
+        }
 
         /// <summary>
         /// 根据SQL语句进行查询，将查询结果保存到数据集中返回。
@@ -631,6 +713,15 @@ namespace DataAccessLayer.DataBaseFactory
         #endregion
 
         #region 相关关键符号
+
+        /// <summary>
+        /// 拼接字符串
+        /// </summary>
+        /// <returns></returns>
+        public override string ConnectChar()
+        {
+            return "+";
+        }
 
         /// <summary>
         /// 拼接字符串

@@ -17,14 +17,52 @@ namespace DataAccessLayer.DataBaseFactory
         public OracleCommand cmd = null;
         public OracleDataAdapter adapter = null;
 
-        
+        //mqg于20180928增加，扩展增加数据库连接池
+        public List<OracleConnection> cnnList = new List<OracleConnection>();
+
         /// <summary>
         /// 获得一个数据库链接。
         /// </summary>
         /// <returns>数据库链接</returns>
         public override IDbConnection GetConnection()
         {
-            cnn = new OracleConnection(base.ConnectionString);
+            //if (cnn == null || cnn.ConnectionString == null || cnn.ConnectionString == string.Empty)
+            //{
+            //    cnn = new OracleConnection(base.ConnectionString);
+            //}
+            //if (cnn.State != ConnectionState.Open)
+            //{
+            //    cnn.Open();
+            //}
+            //return cnn;
+
+            //mqg于20180928增加，扩展连接池处理
+            if (base.maxCnn == cnnList.Count)
+            {
+                //连接池满从连接池获取
+                Random rdom = new Random();
+                int tmpIndex = rdom.Next(0, cnnList.Count);
+                cnn = cnnList[tmpIndex];
+
+                if (cnn == null || cnn.ConnectionString == null || cnn.ConnectionString == string.Empty)
+                {
+                    cnnList.Remove(cnnList[tmpIndex]);
+                    cnn = new OracleConnection(base.ConnectionString);
+                    cnn.Open();
+                    cnnList.Add(cnn);
+                }
+            }
+            else
+            {
+                OracleConnection tmpcnn = new OracleConnection(base.ConnectionString);
+                tmpcnn.Open();
+                if (base.maxCnn >= cnnList.Count)
+                {
+                    cnnList.Add(tmpcnn);
+                }
+                cnn = tmpcnn;
+            }
+
             return cnn;
         }
 
@@ -38,7 +76,6 @@ namespace DataAccessLayer.DataBaseFactory
 
             try
             {
-                cnnTrans.Open();
                 trans = cnnTrans.BeginTransaction();
             }
             catch (Exception e)
@@ -214,19 +251,10 @@ namespace DataAccessLayer.DataBaseFactory
                 if (trans == null)
                 {
                     cnn = (OracleConnection)this.GetConnection();
-                    if(cnn.State == ConnectionState.Closed)
-                    {
-                        cnn.Open();
-                    }
-                    
                     cmd = (OracleCommand)this.GetCommand(sql, sqlexectype, (IDbConnection)cnn, (IDbTransaction)trans, paras);
                 }
                 else
-                {
-                    if(trans.Connection.State == ConnectionState.Closed)
-                    {
-                        trans.Connection.Open();
-                    }                    
+                {               
                     cmd = (OracleCommand)this.GetCommand(sql, sqlexectype, trans.Connection, trans, paras);
                 }
 
@@ -239,12 +267,13 @@ namespace DataAccessLayer.DataBaseFactory
                 throw new Exception("SQL query error!" + err.Message + "\r\n SQL script is：" + sql, err);
             }
             finally
-            {                
-                if (trans == null && cnn != null)
-                {
-                    cnn.Close();
-                    cnn.Dispose();
-                }
+            {
+                //mqg于20180928增加，这里不在释放连接，交给连接池管理           
+                //if (trans == null && cnn != null)
+                //{
+                //    cnn.Close();
+                //    cnn.Dispose();
+                //}
             }
 
             return tempint;
@@ -267,18 +296,10 @@ namespace DataAccessLayer.DataBaseFactory
                 if (trans == null)
                 {
                     cnn = (OracleConnection)this.GetConnection();
-                    if (cnn.State == ConnectionState.Closed)
-                    {
-                        cnn.Open();
-                    }
                     cmd = (OracleCommand)this.GetCommand(sql, sqlexectype, (IDbConnection)cnn, (IDbTransaction)trans, paras);
                 }
                 else
                 {
-                    if (trans.Connection.State == ConnectionState.Closed)
-                    {
-                        trans.Connection.Open();
-                    }
                     cmd = (OracleCommand)this.GetCommand(sql, sqlexectype, trans.Connection, trans, paras);
                 }
 
@@ -292,11 +313,12 @@ namespace DataAccessLayer.DataBaseFactory
             }
             finally
             {
-                if (trans == null && cnn != null)
-                {
-                    cnn.Close();
-                    cnn.Dispose();
-                }
+                //mqg于20180928增加，这里不在释放连接，交给连接池管理
+                //if (trans == null && cnn != null)
+                //{
+                //    cnn.Close();
+                //    cnn.Dispose();
+                //}
             }
 
             return tempobj;
@@ -314,10 +336,6 @@ namespace DataAccessLayer.DataBaseFactory
             try
             {
                 cnn =(OracleConnection)this.GetConnection();
-                if (cnn.State == ConnectionState.Closed)
-                {
-                    cnn.Open();
-                }
                 cmd =(OracleCommand)this.GetCommand(sql, sqlexectype, (IDbConnection)cnn, null, paras);
                 reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 //清除掉参数，以免二次使用.net取缓冲导致报错
@@ -329,8 +347,10 @@ namespace DataAccessLayer.DataBaseFactory
             }
             finally
             {
-                cnn.Close();
-                cnn.Dispose();
+                //mqg于20180928增加，这里不在释放连接，交给连接池管理
+                reader.Close();
+                //cnn.Close();
+                //cnn.Dispose();
             }
 
             return reader;
@@ -348,10 +368,6 @@ namespace DataAccessLayer.DataBaseFactory
             try
             {
                 cnn = (OracleConnection)this.GetConnection();
-                if (cnn.State == ConnectionState.Closed)
-                {
-                    cnn.Open();
-                }
                 cmd = (OracleCommand)this.GetCommand(sql, sqlexectype, cnn, null, paras);
                 adapter = new OracleDataAdapter(cmd);
                 adapter.Fill(ds, "tableName");
@@ -365,9 +381,45 @@ namespace DataAccessLayer.DataBaseFactory
 
             finally
             {
-                adapter.Dispose();
-                cnn.Close();
-                cnn.Dispose();
+                //mqg于20180928增加，这里不在释放连接，交给连接池管理
+                //adapter.Dispose();
+                //cnn.Close();
+                //cnn.Dispose();
+            }
+
+            return ds;
+        }
+
+        /// <summary>
+        /// 根据SQL语句进行查询，将查询结果保存到数据集中返回。
+        /// 单独服务于多线程处理，多线程且高频访问的业务查询，mqg于20181106增加
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public override DataSet GetDataSetThreadSafe(string sql, SqlExecType sqlexectype, params IDataParameter[] paras)
+        {
+            DataSet ds = new DataSet();
+
+            //为了不独立实现支持多线程的处理，又能允许多线程应用，只能牺牲资源每次新建连接
+            OracleDataAdapter adapterTmp = new OracleDataAdapter();
+            OracleConnection connection = new OracleConnection(base.ConnectionString);
+            try
+            {
+                connection.Open();
+                OracleCommand cmdTmp = (OracleCommand)this.GetCommand(sql, sqlexectype, connection, null, paras);
+                adapterTmp.SelectCommand = cmdTmp;
+                adapterTmp.Fill(ds, "tableName");
+            }
+            catch (Exception err)
+            {
+                throw new Exception("SQL query error!" + err.Message + "\r\n SQL script is：" + sql, err);
+            }
+            finally
+            {
+                adapterTmp.Dispose();
+                connection.Close();
+                connection.Dispose();
             }
 
             return ds;
@@ -647,9 +699,18 @@ namespace DataAccessLayer.DataBaseFactory
             return resStr;
         }
 
-        #endregion       
+        #endregion
 
         #region 相关关键符号
+
+        /// <summary>
+        /// 拼接字符串
+        /// </summary>
+        /// <returns></returns>
+        public override string ConnectChar()
+        {
+            return "||";
+        }       
 
         /// <summary>
         /// 拼接字符串
